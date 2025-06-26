@@ -1,16 +1,17 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from flask import Flask, request, jsonify
+from chat_logic import process_chat
 
-app = FastAPI()
+app = Flask(__name__)
 
-# Allow all CORS (adjust in production if needed)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+@app.route("/", methods=["GET"])
+def index():
+    return "CyberSapiens Call Agent Backend is running."
 
-@app.get("/")
-def read_root():
-    return {"message": "CyberSapiens Call Agent Backend is live"}
+@app.route("/chat", methods=["POST"])
+def chat():
+    user_input = request.json.get("message", "")
+    reply = process_chat(user_input)
+    return jsonify({"reply": reply})
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000)
