@@ -2,7 +2,7 @@ import openai
 import os
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
-model_name = os.getenv("MODEL_NAME", "gpt-4o")
+model_name = os.getenv("MODEL_NAME", "gpt-4")
 
 def process_chat(user_input):
     try:
