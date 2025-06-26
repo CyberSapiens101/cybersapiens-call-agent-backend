@@ -1,7 +1,7 @@
+import openai
 import os
-from openai import OpenAI
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 model_name = os.getenv("MODEL_NAME", "gpt-4")
 
 def process_chat(user_input):
