@@ -1,12 +1,12 @@
-import openai
 import os
+from openai import OpenAI
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 model_name = os.getenv("MODEL_NAME", "gpt-4")
 
 def process_chat(user_input):
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model=model_name,
             messages=[
                 {"role": "system", "content": "You are a helpful assistant for CyberSapiens who answers WhatsApp queries."},
@@ -14,6 +14,6 @@ def process_chat(user_input):
             ],
             temperature=0.7
         )
-        return response.choices[0].message['content']
+        return response.choices[0].message.content
     except Exception as e:
         return f"Error: {str(e)}"
