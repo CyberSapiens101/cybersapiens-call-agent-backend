@@ -1,13 +1,12 @@
-import openai
+from openai import OpenAI
 import os
 
-client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-model_name = os.getenv("MODEL_NAME", "gpt-4")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def process_chat(user_input):
     try:
         response = client.chat.completions.create(
-            model=model_name,
+            model="gpt-4",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant for CyberSapiens who answers WhatsApp queries."},
                 {"role": "user", "content": user_input}
